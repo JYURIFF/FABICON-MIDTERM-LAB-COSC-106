@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://bfo04pgxp6c0y"]
+
+[ext_resource type="Texture2D" uid="uid://3p3jlfmmxyka" path="res://art/enemyFlyingAlt_2.png" id="1_3yqyl"]
+[ext_resource type="Script" uid="uid://b2ttr6lgtnxl0" path="res://enemy.gd" id="1_wujgv"]
+[ext_resource type="Texture2D" uid="uid://bxvs6bfqeb2ht" path="res://art/enemyFlyingAlt_1.png" id="2_wujgv"]
+[ext_resource type="Texture2D" uid="uid://ddx58usc6q810" path="res://art/enemySwimming_1.png" id="3_hb8ge"]
+[ext_resource type="Texture2D" uid="uid://cbpcja50b133y" path="res://art/enemySwimming_2.png" id="4_e1ltt"]
+[ext_resource type="Texture2D" uid="uid://b5j67lbywv77n" path="res://art/enemyWalking_1.png" id="5_dxifv"]
+[ext_resource type="Texture2D" uid="uid://d0r6a3xd1m1cp" path="res://art/enemyWalking_2.png" id="6_pwjut"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n0g06"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3yqyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wujgv")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_hb8ge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e1ltt")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_dxifv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pwjut")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3yqyl"]
+radius = 80.024994
+
+[node name="enemy" type="RigidBody2D" unique_id=1165749017]
+position = Vector2(260, 425)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_wujgv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1759285124]
+sprite_frames = SubResource("SpriteFrames_n0g06")
+animation = &"walk"
+frame_progress = 0.17910437
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=452856137]
+position = Vector2(11, 1)
+shape = SubResource("CircleShape2D_3yqyl")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=905758534]
+position = Vector2(13, 8)
+rect = Rect2(-10, -10, 15, 14)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
